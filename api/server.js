@@ -25,13 +25,13 @@ app.post('/api/server', async (req, res) => {
 
   try {
     const completion = await groq.chat.completions.create({
-      messages: [{ role: 'user', content: message },
-                { role: 'system', content: 'Jawaban Anda harus tertata rapi, menggunakan paragraf, dan Anda dapat menggunakan <strong>bold</strong> untuk menekankan bagian penting. 
-                  Anda hanya menjawab dalam bahasa Indonesia dan topik harus seputar tembakau.' }
-],
-      
-      model: 'llama-3.3-70b-versatile',
-    });
+  messages: [
+    { role: 'system', content: 'Anda adalah asisten virtual yang hanya menjawab dalam bahasa Indonesia tentang topik tembakau secara profesional.' },
+    { role: 'user', content: message }
+  ],
+  model: 'llama-3.3-70b-versatile',
+});
+
 
     const responseMessage = completion.choices[0]?.message?.content || 'Maaf, saya tidak bisa memberikan balasan.';
     res.json({ reply: responseMessage });
