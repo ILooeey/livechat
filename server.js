@@ -1,30 +1,35 @@
-module.exports = (req, res) => {
-  const Groq = require('groq-sdk');
-  const bodyParser = require('body-parser');
+const express = require('express');
+const Groq = require('groq-sdk');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-  const groq = new Groq({ apiKey: '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' }); // Ganti dengan API Key Anda
+const app = express();
 
-  bodyParser.json()(req, res, async () => {
-    const { message } = req.body;
+// Inisialisasi GROQ SDK dengan API Key
+const groq = new Groq({ apiKey: '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' }); // Ganti dengan API Key Anda
 
-    try {
-      const completion = await groq.chat.completions.create({
-        messages: [{ role: 'user', content: message }],
-        model: 'llama-3.3-70b-versatile',
-      });
+app.use(bodyParser.json());
+app.use(cors());
 
-      const responseMessage = completion.choices[0]?.message?.content || 'Maaf, saya tidak bisa menghasilkan respons.';
+// Route untuk API chat
+app.post('/api/server', async (req, res) => {
+  const { message } = req.body;
 
-      // Pengecekan apakah respons mengandung kata "tembakau"
-      if (responseMessage.toLowerCase().includes('tembakau')) {
-        res.json({ reply: responseMessage });
-      } else {
-        res.json({ reply: 'Maaf, saya hanya bisa membantu seputar tembakau.' });
-      }
+  try {
+    const completion = await groq.chat.completions.create({
+      messages: [{ role: 'user', content: message }],
+      model: 'llama-3.3-70b-versatile', // Model yang digunakan
+    });
 
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Terjadi kesalahan saat memproses permintaan.' });
-    }
-  });
-};
+    const responseMessage = completion.choices[0]?.message?.content || 'Maaf, saya tidak bisa memberikan respons.';
+    res.json({ reply: responseMessage });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Terjadi kesalahan saat memproses permintaan' });
+  }
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server berjalan di http://localhost:${port}`);
+});
