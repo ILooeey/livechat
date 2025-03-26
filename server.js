@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
-const groq = new Groq({ apiKey: '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' }); // Ganti dengan API Key Anda
+const groq = new Groq({ apiKey: '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' }); 
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -18,11 +18,19 @@ app.post('/chat', async (req, res) => {
       model: 'llama-3.3-70b-versatile',
     });
 
-    const responseMessage = completion.choices[0]?.message?.content || 'Sorry, I could not generate a response.';
-    res.json({ reply: responseMessage });
+    const responseMessage = completion.choices[0]?.message?.content || 'Maaf, saya tidak bisa menghasilkan respons.';
+
+    // Pengecekan apakah respons mengandung kata "tembakau"
+    if (responseMessage.toLowerCase().includes('tembakau')) {
+      res.json({ reply: responseMessage });
+    } else {
+      // Respons jika topik tidak relevan dengan tembakau
+      res.json({ reply: 'Maaf, saya hanya bisa membantu seputar tembakau.' });
+    }
+
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error processing the request' });
+    res.status(500).json({ error: 'Terjadi kesalahan saat memproses permintaan.' });
   }
 });
 
