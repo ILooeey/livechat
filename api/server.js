@@ -11,7 +11,7 @@ app.use(cors());
 
 function isTobaccoRelated(message) {
   const keywords = ['tembakau', 'rokok', 'nikotin', 'tembakau kering', 'cerutu', 'solusi', 'tanaman', 'tumbuhan', 'sehat', 
-                    'subur', 'hama', 'ada', 'masalah', 'terimakasih', 'terima kasih', 'hai', 'makasih', 'oke'. 'trims', 'trimz', 'thanks', 'iyh',
+                    'subur', 'hama', 'ada', 'masalah', 'terimakasih', 'terima kasih', 'hai', 'makasih', 'oke', 'trims', 'trimz', 'thanks', 'iyh',
     'y', 'iya', 'ýa', 'baik', 'bek', 'permasalahan', 'rusak', 'regulasi'];
   return keywords.some(keyword => message.toLowerCase().includes(keyword));
 }
