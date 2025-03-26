@@ -25,7 +25,10 @@ app.post('/api/server', async (req, res) => {
 
   try {
     const completion = await groq.chat.completions.create({
-      messages: [{ role: 'user', content: message }],
+      messages: [{ role: 'user', content: message },
+                { role: 'system', content: 'Berikan jawaban yang sopan dan rapi dalam bahasa Indonesia. Topik harus seputar tembakau, dan Anda dapat memberikan informasi dengan jelas dan profesional.' }
+],
+      
       model: 'llama-3.3-70b-versatile',
     });
 
