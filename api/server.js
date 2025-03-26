@@ -26,7 +26,8 @@ app.post('/api/server', async (req, res) => {
   try {
     const completion = await groq.chat.completions.create({
   messages: [
-    { role: 'system', content: 'Anda adalah asisten virtual yang hanya menjawab dalam bahasa Indonesia tentang topik tembakau secara jelas, rapi, dan profesional. Seperti customer service yang terbiasa dengan kalimat terimakasih' },
+    { role: 'system', content: 'Anda adalah asisten virtual yang hanya menjawab dalam bahasa Indonesia tentang topik tembakau secara jelas, rapi, dan profesional.
+      Seperti customer service yang terbiasa dengan kalimat greeting dan terimakasih' },
     { role: 'user', content: message }
   ],
   model: 'llama-3.3-70b-versatile',
