@@ -9,16 +9,16 @@ const groq = new Groq({ apiKey: 'gsk_wsdkx8dVGUg96XgMqIqwWGdyb3FYFJEd9vtMJUUyrKZ
 app.use(bodyParser.json());
 app.use(cors());
 
-// Fungsi sederhana untuk mengecek apakah pesan terkait dengan tembakau
 function isTobaccoRelated(message) {
-  const keywords = ['tembakau', 'rokok', 'nikotin', 'tembakau kering', 'cerutu', 'solusi', 'tanaman', 'tumbuhan', 'sehat', 'subur', 'hama', 'ada', 'masalah', 'terimakasih', 'terima kasih', 'hai'];
+  const keywords = ['tembakau', 'rokok', 'nikotin', 'tembakau kering', 'cerutu', 'solusi', 'tanaman', 'tumbuhan', 'sehat', 
+                    'subur', 'hama', 'ada', 'masalah', 'terimakasih', 'terima kasih', 'hai', 'makasih', 'oke'. 'trims', 'trimz', 'thanks', 'iyh',
+    'y', 'iya', 'ýa', 'baik', 'bek', 'permasalahan', 'rusak', 'regulasi'];
   return keywords.some(keyword => message.toLowerCase().includes(keyword));
 }
 
 app.post('/api/server', async (req, res) => {
   const { message } = req.body;
 
-  // Cek apakah pesan berbahasa Indonesia dan terkait tembakau
   if (!isTobaccoRelated(message)) {
     return res.json({ reply: 'Maaf, saya hanya bisa mendiskusikan topik seputar tembakau.' });
   }
