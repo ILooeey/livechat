@@ -133,7 +133,7 @@
             chatBox.scrollTop = chatBox.scrollHeight;
 
             // Kirim pesan ke server
-            const response = await fetch('https://livechat-five-pi.vercel.app/', {
+            const response = await fetch('https://livechat-five-pi.vercel.app/api/server', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
