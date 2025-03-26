@@ -11,7 +11,7 @@ app.use(cors());
 
 // Fungsi sederhana untuk mengecek apakah pesan terkait dengan tembakau
 function isTobaccoRelated(message) {
-  const keywords = ['tembakau', 'rokok', 'nikotin', 'tembakau kering', 'cerutu', 'solusi', 'tanaman', 'tumbuhan', 'sehat', 'subur', 'hama', 'ada', 'masalah'];
+  const keywords = ['tembakau', 'rokok', 'nikotin', 'tembakau kering', 'cerutu', 'solusi', 'tanaman', 'tumbuhan', 'sehat', 'subur', 'hama', 'ada', 'masalah', 'terimakasih', 'terima kasih', 'hai'];
   return keywords.some(keyword => message.toLowerCase().includes(keyword));
 }
 
@@ -26,8 +26,7 @@ app.post('/api/server', async (req, res) => {
   try {
     const completion = await groq.chat.completions.create({
   messages: [
-    { role: 'system', content: 'Anda adalah asisten virtual yang hanya menjawab dalam bahasa Indonesia tentang topik tembakau secara jelas, rapi, dan profesional.
-      Seperti customer service yang terbiasa dengan kalimat greeting dan terimakasih' },
+    { role: 'system', content: 'Anda adalah asisten virtual yang hanya menjawab dalam bahasa Indonesia tentang topik tembakau secara jelas, rapi, dan profesional seperti customer service yang sopan' },
     { role: 'user', content: message }
   ],
   model: 'llama-3.3-70b-versatile',
