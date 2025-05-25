@@ -9,20 +9,6 @@ const groq = new Groq({ apiKey: 'gsk_wsdkx8dVGUg96XgMqIqwWGdyb3FYFJEd9vtMJUUyrKZ
 app.use(bodyParser.json());
 app.use(cors());
 
-function isTobaccoRelated(message) {
-  const keywords = ['tembakau', 'rokok', 'nikotin', 'tembakau kering', 'cerutu', 'solusi', 'tanaman', 'tumbuhan', 'sehat', 
-                    'subur', 'hama', 'ada', 'masalah', 'terimakasih', 'terima kasih', 'hai', 'makasih', 'oke', 'trims', 'trimz', 'thanks', 'iyh',
-    'y', 'iya', 'ýa', 'baik', 'bek', 'permasalahan', 'rusak', 'regulasi'];
-  return keywords.some(keyword => message.toLowerCase().includes(keyword));
-}
-
-app.post('/api/server', async (req, res) => {
-  const { message } = req.body;
-
-  if (!isTobaccoRelated(message)) {
-    return res.json({ reply: 'Maaf, saya hanya bisa mendiskusikan topik seputar tembakau.' });
-  }
-
   try {
     const completion = await groq.chat.completions.create({
   messages: [
